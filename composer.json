@@ -10,7 +10,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Test\\": "tests"
+            "Longmaikel\\Test\\Windu\\": "tests"
         }
     },
     "require": {
