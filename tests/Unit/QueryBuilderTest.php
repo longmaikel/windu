@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Longmaikel\Test\Windu\Unit;
 
+use Longmaikel\Windu\MySqlQueryBuilder;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 
 class QueryBuilderTest extends MockeryTestCase
