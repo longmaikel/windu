@@ -17,5 +17,6 @@ class MySqlQueryBuilder
 
     public function select(): MySqlQueryBuilder
     {
+        return $this;
     }
 }
