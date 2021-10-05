@@ -8,7 +8,7 @@ use Mockery\Adapter\Phpunit\MockeryTestCase;
 
 class QueryBuilderTest extends MockeryTestCase
 {
-    public function test_empty_string_when_query_builder_is_created()
+    public function test_empty_string_when_query_builder_is_created(): void
     {
         $queryBuilder = new MySqlQueryBuilder();
         $query = $queryBuilder->toSql();
