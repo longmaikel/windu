@@ -14,4 +14,14 @@ class QueryBuilderTest extends MockeryTestCase
         $query = $queryBuilder->toSql();
         $this->assertSame('', $query);
     }
+
+    public function test_query_contain_select_all_statement_without_passing_any_params(): void
+    {
+        $queryBuilder = new MySqlQueryBuilder();
+        $query = $queryBuilder->select()
+            ->toSql();
+
+        $this->assertStringContainsString('SELECT * ', $query);
+    }
+    
 }
