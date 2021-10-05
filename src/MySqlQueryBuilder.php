@@ -14,4 +14,8 @@ class MySqlQueryBuilder
     {
         return '';
     }
+
+    public function select()
+    {
+    }
 }
