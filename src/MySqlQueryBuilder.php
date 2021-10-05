@@ -9,4 +9,9 @@ class MySqlQueryBuilder
     public function __construct()
     {
     }
+
+    public function toSql(): string
+    {
+        return '';
+    }
 }
