@@ -22,9 +22,10 @@ class MySqlQueryBuilder
         return $query;
     }
 
-    public function select(string $column = '*'): MySqlQueryBuilder
+    public function select(string $column = '*', string ...$columns): MySqlQueryBuilder
     {
         $this->selectArray[] = $column;
+        $this->selectArray = array_merge($this->selectArray, $columns);
         return $this;
     }
 
