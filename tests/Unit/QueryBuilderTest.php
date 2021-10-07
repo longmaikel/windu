@@ -56,5 +56,18 @@ class QueryBuilderTest extends MockeryTestCase
         //then
         $this->assertStringContainsString('SELECT * ', $query);
     }
+
+    public function test_query_contain_selected_column(): void
+    {
+        // given
+        $queryBuilder = $this->queryBuilder;
+
+        //when
+        $query = $queryBuilder->select('c.id')
+            ->toSql();
+
+        //then
+        $this->assertStringContainsString('SELECT c.id ', $query);
+    }
     
 }
