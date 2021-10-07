@@ -24,8 +24,7 @@ class MySqlQueryBuilder
 
     public function select(string $column = '*', string ...$columns): MySqlQueryBuilder
     {
-        $this->selectArray[] = $column;
-        $this->selectArray = array_merge($this->selectArray, $columns);
+        $this->selectArray = array_merge($this->selectArray, [$column], $columns);
         return $this;
     }
 
