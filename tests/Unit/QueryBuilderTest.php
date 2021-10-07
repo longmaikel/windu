@@ -85,6 +85,20 @@ class QueryBuilderTest extends MockeryTestCase
         $this->assertStringContainsString('c.created_at', $query);
     }
 
+    public function test_query_has_not_select_all_when_select_at_least_one_column(): void
+    {
+        // given
+        $queryBuilder = $this->queryBuilder;
+
+        //when
+        $query = $queryBuilder->select()
+            ->select('c.id', 'c.name', 'c.created_at')
+            ->toSql();
+
+        //then
+        $this->assertStringNotContainsString('*', $query);
+    }
+
 
     
 }
