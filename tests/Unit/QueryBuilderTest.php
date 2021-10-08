@@ -44,6 +44,19 @@ class QueryBuilderTest extends MockeryTestCase
         $this->assertSame('', $query);
     }
 
+    public function test_query_contain_select_key_word(): void
+    {
+        // given
+        $queryBuilder = $this->queryBuilder;
+
+        //when
+        $query = $queryBuilder->select()
+            ->toSql();
+
+        //then
+        $this->assertStringContainsString('SELECT', $query);
+    }
+
     public function test_query_contain_select_all_statement_when_select_has_no_params(): void
     {
         // given
@@ -54,7 +67,7 @@ class QueryBuilderTest extends MockeryTestCase
             ->toSql();
 
         //then
-        $this->assertStringContainsString('SELECT * ', $query);
+        $this->assertStringContainsString('*', $query);
     }
 
     public function test_query_contain_selected_string_column(): void
@@ -67,7 +80,7 @@ class QueryBuilderTest extends MockeryTestCase
             ->toSql();
 
         //then
-        $this->assertStringContainsString('SELECT c.id ', $query);
+        $this->assertStringContainsString('c.id', $query);
     }
 
     public function test_query_contain_selected_multiple_string_columns(): void
