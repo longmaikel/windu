@@ -11,7 +11,6 @@ class MySqlQueryBuilder
     public function __construct()
     {
         $this->selectArray = [];
-        $this->hasSelectAllStatement = false;
     }
 
     public function toSql(): string
@@ -38,7 +37,9 @@ class MySqlQueryBuilder
         if ($this->aggregatorIsEmpty($aggregator)) {
             return $query;
         }
-
+        
+        $aggregator = $this->prepareSelectAggregator($aggregator);
+        
         $query = $this->addSelectKeyWordToQuery($query);
         $query = $this->addSelectColumnsToQuery($aggregator, $query);
         $query = $this->removeLastCommaFromString($query);
@@ -78,6 +79,21 @@ class MySqlQueryBuilder
     protected function addWhiteSpaceToEndOfString(string $needle): string
     {
         return sprintf("%s ", $needle);
+    }
+
+    protected function prepareSelectAggregator(array $aggregator): array
+    {
+        $foundSelectAllStmt = false;
+        foreach ($aggregator as $key => $column) {
+            if ('*' === $column) {
+                if ($foundSelectAllStmt) {
+                    unset($aggregator[$key]);
+                } else {
+                    $foundSelectAllStmt = true;
+                }
+            }
+        }
+        return $aggregator;
     }
 
 }

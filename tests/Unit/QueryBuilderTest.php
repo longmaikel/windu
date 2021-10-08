@@ -133,6 +133,7 @@ class QueryBuilderTest extends TestCase
             [(new MySqlQueryBuilder())->select('*','c.name')->toSql()],
             [(new MySqlQueryBuilder())->select('c.name','*')->toSql()],
             [(new MySqlQueryBuilder())->select('c.name','*', 'c.id')->toSql()],
+            [(new MySqlQueryBuilder())->select(['c.name','*', 'c.id'])->toSql()],
         ];
     }
 
