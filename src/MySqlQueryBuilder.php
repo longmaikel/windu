@@ -7,7 +7,6 @@ class MySqlQueryBuilder
 {
 
     private array $selectArray;
-    private bool $hasSelectAllStatement;
 
     public function __construct()
     {
@@ -22,9 +21,10 @@ class MySqlQueryBuilder
         return $query;
     }
 
-    public function select(string $column = '*', string ...$columns): MySqlQueryBuilder
+    public function select(string|array $column = '*', string ...$columns): MySqlQueryBuilder
     {
-        $this->selectArray = array_merge($this->selectArray, [$column], $columns);
+        $column = is_array($column) ? $column : [$column];
+        $this->selectArray = array_merge($this->selectArray, $column, $columns);
         return $this;
     }
 
