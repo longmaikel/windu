@@ -3,10 +3,11 @@ declare(strict_types=1);
 
 namespace Longmaikel\Test\Windu\Unit;
 
+use Longmaikel\Test\Windu\Framework\TestCase;
 use Longmaikel\Windu\MySqlQueryBuilder;
-use Mockery\Adapter\Phpunit\MockeryTestCase;
+//use Mockery\Adapter\Phpunit\MockeryTestCase;
 
-class QueryBuilderTest extends MockeryTestCase
+class QueryBuilderTest extends TestCase
 {
 
     private MySqlQueryBuilder $queryBuilder;
@@ -70,6 +71,15 @@ class QueryBuilderTest extends MockeryTestCase
         $this->assertStringContainsString('*', $query);
     }
 
+    /**
+     * @dataProvider selectAllCases
+     */
+    public function test_query_contain_only_one_select_all_statement(string $query): void
+    {
+        //then
+        $this->assertStringContainsStringOnce('*', $query);
+    }
+
     public function test_query_contain_selected_string_column(): void
     {
         // given
@@ -114,17 +124,17 @@ class QueryBuilderTest extends MockeryTestCase
         $this->assertStringContainsString('c.created_at', $query);
     }
 
-//    public function selectAllCases(): array
-//    {
-//        return [
-//            [(new MySqlQueryBuilder())->select()->select('c.id')->toSql()],
-//            [(new MySqlQueryBuilder())->select('c.id')->select()->toSql()],
-//            [(new MySqlQueryBuilder())->select()->select('c.id')->select()->toSql()],
-//            [(new MySqlQueryBuilder())->select('*','c.name')->toSql()],
-//            [(new MySqlQueryBuilder())->select('c.name','*')->toSql()],
-//            [(new MySqlQueryBuilder())->select('c.name','*', 'c.id')->toSql()],
-//        ];
-//    }
+    public function selectAllCases(): array
+    {
+        return [
+            [(new MySqlQueryBuilder())->select()->select('c.id')->toSql()],
+            [(new MySqlQueryBuilder())->select('c.id')->select()->toSql()],
+            [(new MySqlQueryBuilder())->select()->select('c.id')->select()->toSql()],
+            [(new MySqlQueryBuilder())->select('*','c.name')->toSql()],
+            [(new MySqlQueryBuilder())->select('c.name','*')->toSql()],
+            [(new MySqlQueryBuilder())->select('c.name','*', 'c.id')->toSql()],
+        ];
+    }
 
 
     
