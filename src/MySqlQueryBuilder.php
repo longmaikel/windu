@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace Longmaikel\Windu;
 
-use JetBrains\PhpStorm\Pure;
-
 class MySqlQueryBuilder
 {
 
     private array $selectArray;
+    private bool $hasSelectAllStatement;
 
     public function __construct()
     {
         $this->selectArray = [];
+        $this->hasSelectAllStatement = false;
     }
 
     public function toSql(): string
@@ -38,7 +38,7 @@ class MySqlQueryBuilder
 
         $query = $this->addSelectKeyWordToQuery($query);
         $query = $this->addSelectColumnsToQuery($aggregator, $query);
-        $query = $this->removeLastCommaFormString($query);
+        $query = $this->removeLastCommaFromString($query);
         return $this->addWhiteSpaceToEndOfString($query);
 
     }
@@ -67,7 +67,7 @@ class MySqlQueryBuilder
         return $query;
     }
 
-    protected function removeLastCommaFormString(string $needle): string
+    protected function removeLastCommaFromString(string $needle): string
     {
         return rtrim($needle, ',');
     }

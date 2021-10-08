@@ -85,24 +85,17 @@ class QueryBuilderTest extends MockeryTestCase
         $this->assertStringContainsString('c.created_at', $query);
     }
 
-    /**
-     * @dataProvider selectAllCases
-     */
-    public function test_query_has_not_select_all_when_select_at_least_one_column(string $query): void
-    {
-        //then
-        $this->assertStringNotContainsString('*', $query);
-    }
-
-    public function selectAllCases(): array
-    {
-        return [
-            [(new MySqlQueryBuilder())->select()->select('c.id')->toSql()],
-            [(new MySqlQueryBuilder())->select('c.id')->select()->toSql()],
-            [(new MySqlQueryBuilder())->select()->select('c.id')->select()->toSql()],
-            [(new MySqlQueryBuilder())->select('*','c.name')->toSql()],
-        ];
-    }
+//    public function selectAllCases(): array
+//    {
+//        return [
+//            [(new MySqlQueryBuilder())->select()->select('c.id')->toSql()],
+//            [(new MySqlQueryBuilder())->select('c.id')->select()->toSql()],
+//            [(new MySqlQueryBuilder())->select()->select('c.id')->select()->toSql()],
+//            [(new MySqlQueryBuilder())->select('*','c.name')->toSql()],
+//            [(new MySqlQueryBuilder())->select('c.name','*')->toSql()],
+//            [(new MySqlQueryBuilder())->select('c.name','*', 'c.id')->toSql()],
+//        ];
+//    }
 
 
     
