@@ -23,7 +23,10 @@ class MySqlQueryBuilder
 
     public function select(string|array $column = '*', string ...$columns): MySqlQueryBuilder
     {
-        $column = is_array($column) ? $column : [$column];
+        if (!is_array($column)) {
+            $column = [$column];
+        }
+
         $this->selectArray = array_merge($this->selectArray, $column, $columns);
         return $this;
     }
