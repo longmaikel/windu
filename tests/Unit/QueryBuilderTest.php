@@ -85,6 +85,22 @@ class QueryBuilderTest extends MockeryTestCase
         $this->assertStringContainsString('c.created_at', $query);
     }
 
+    public function test_query_contain_selected_columns_passing_in_array(): void
+    {
+        // given
+        $queryBuilder = $this->queryBuilder;
+        $columns = ['c.id', 'c.name', 'c.created_at'];
+
+        //when
+        $query = $queryBuilder->select($columns)
+            ->toSql();
+
+        //then
+        $this->assertStringContainsString('c.id,', $query);
+        $this->assertStringContainsString('c.name,', $query);
+        $this->assertStringContainsString('c.created_at', $query);
+    }
+
 //    public function selectAllCases(): array
 //    {
 //        return [
