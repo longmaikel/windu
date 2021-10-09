@@ -3,20 +3,30 @@ declare(strict_types=1);
 
 namespace Longmaikel\Windu;
 
+use Exception;
+
 class MySqlQueryBuilder
 {
 
     private array $selectArray;
+    private array $table;
 
     public function __construct()
     {
         $this->selectArray = [];
+        $this->table = [];
     }
 
     public function toSql(): string
     {
         $query = '';
         $query .= $this->prepareSelectStatement($query);
+
+        if (!empty($this->table)) {
+            $table = $this->table[0];
+            $query = sprintf("%s FROM %s", $query, $table);
+        }
+
         return $query;
     }
 
@@ -27,6 +37,12 @@ class MySqlQueryBuilder
         }
 
         $this->selectArray = array_merge($this->selectArray, $column, $columns);
+        return $this;
+    }
+
+    public function from(string $table): MySqlQueryBuilder
+    {
+        $this->table = [$table];
         return $this;
     }
 
