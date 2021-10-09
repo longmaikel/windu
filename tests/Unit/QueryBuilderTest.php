@@ -72,7 +72,7 @@ class QueryBuilderTest extends TestCase
     }
 
     /**
-     * @dataProvider selectAllCases
+     * @dataProvider selectAllStmtCases
      */
     public function test_query_contain_only_one_select_all_statement(string $query): void
     {
@@ -124,7 +124,7 @@ class QueryBuilderTest extends TestCase
         $this->assertStringContainsString('c.created_at', $query);
     }
 
-    public function selectAllCases(): array
+    public function selectAllStmtCases(): array
     {
         return [
             [(new MySqlQueryBuilder())->select()->select('c.id')->toSql()],
