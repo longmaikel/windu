@@ -36,8 +36,12 @@ class MySqlQueryBuilder
         return $this;
     }
 
-    public function from(string $table): MySqlQueryBuilder
+    public function from(string $table, string $alias = null): MySqlQueryBuilder
     {
+        if ($alias) {
+            $table = sprintf("%s AS %s", $table, $alias);
+        }
+
         $this->table = [$table];
         return $this;
     }
