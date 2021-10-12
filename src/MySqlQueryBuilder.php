@@ -75,7 +75,8 @@ class MySqlQueryBuilder
 
     protected function addKeyWordToQuery(string $word, string $query): string
     {
-        return sprintf("%s %s", $query, strtoupper($word));
+        $query = sprintf("%s %s", $query, strtoupper($word));
+        return ltrim($query, ' ');
     }
 
     protected function addSelectColumnsToQuery(array $aggregator, string $query): string
@@ -100,14 +101,19 @@ class MySqlQueryBuilder
     protected function prepareSelectAggregator(array $aggregator): array
     {
         $foundSelectAllStmt = false;
+
         foreach ($aggregator as $key => $column) {
-            if ('*' === $column) {
-                if ($foundSelectAllStmt) {
-                    unset($aggregator[$key]);
-                } else {
-                    $foundSelectAllStmt = true;
-                }
+
+            if ('*' !== $column) {
+                continue;
             }
+
+            if ($foundSelectAllStmt) {
+                unset($aggregator[$key]);
+            } else {
+                $foundSelectAllStmt = true;
+            }
+
         }
         return $aggregator;
     }
@@ -119,7 +125,7 @@ class MySqlQueryBuilder
         }
 
         $table = $this->table[0];
-        $query = sprintf("%s FROM %s", $query, $table);
+        $query = sprintf("%sFROM %s", $query, $table);
         return $query;
     }
 
