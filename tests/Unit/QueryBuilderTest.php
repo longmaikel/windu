@@ -5,7 +5,6 @@ namespace Longmaikel\Test\Windu\Unit;
 
 use Longmaikel\Test\Windu\Framework\TestCase;
 use Longmaikel\Windu\MySqlQueryBuilder;
-//use Mockery\Adapter\Phpunit\MockeryTestCase;
 
 class QueryBuilderTest extends TestCase
 {

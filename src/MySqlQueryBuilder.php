@@ -20,12 +20,8 @@ class MySqlQueryBuilder
     public function toSql(): string
     {
         $query = '';
-        $query .= $this->prepareSelectStatement($query);
-
-        if (!empty($this->table)) {
-            $table = $this->table[0];
-            $query = sprintf("%s FROM %s", $query, $table);
-        }
+        $query = $this->prepareSelectStatement($query);
+        $query = $this->prepareFromStatement($query);
 
         return $query;
     }
@@ -110,6 +106,17 @@ class MySqlQueryBuilder
             }
         }
         return $aggregator;
+    }
+
+    protected function prepareFromStatement(string $query): string
+    {
+        if (empty($this->table)) {
+            return $query;
+        }
+
+        $table = $this->table[0];
+        $query = sprintf("%s FROM %s", $query, $table);
+        return $query;
     }
 
 }
