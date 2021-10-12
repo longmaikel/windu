@@ -168,7 +168,7 @@ class QueryBuilderTest extends TestCase
 
     }
 
-    public function test_simple_select_query()
+    public function test_simple_select_query(): void
     {
         //given
         $expectedQuery = 'SELECT c.id, c.name FROM clients AS c';
