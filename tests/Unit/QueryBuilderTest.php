@@ -168,6 +168,21 @@ class QueryBuilderTest extends TestCase
 
     }
 
+    public function test_simple_select_query()
+    {
+        //given
+        $expectedQuery = 'SELECT c.id, c.name FROM clients AS c';
+        $queryBuilder = $this->queryBuilder;
+
+        //when
+        $query = $queryBuilder->select('c.id', 'c.name')
+            ->from('clients', 'c')
+            ->toSql();
+
+        //then
+        $this->assertSame($expectedQuery, $query);
+    }
+
     public function selectAllStmtCases(): array
     {
         return [
