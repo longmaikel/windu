@@ -59,7 +59,8 @@ class MySqlQueryBuilder
         $query = $this->addSelectKeyWordToQuery($query);
         $query = $this->addSelectColumnsToQuery($aggregator, $query);
         $query = $this->removeLastCommaFromString($query);
-        return $this->addWhiteSpaceToEndOfString($query);
+
+        return $query;
 
     }
 
@@ -71,6 +72,11 @@ class MySqlQueryBuilder
     protected function addSelectKeyWordToQuery(string $query): string
     {
         return $this->addKeyWordToQuery('select', $query);
+    }
+
+    protected function addFromKeyWordToQuery(string $query): string
+    {
+        return $this->addKeyWordToQuery('from', $query);
     }
 
     protected function addKeyWordToQuery(string $word, string $query): string
@@ -125,7 +131,8 @@ class MySqlQueryBuilder
         }
 
         $table = $this->table[0];
-        $query = sprintf("%sFROM %s", $query, $table);
+        $query = $this->addFromKeyWordToQuery($query);
+        $query = sprintf("%s %s", $query, $table);
         return $query;
     }
 
