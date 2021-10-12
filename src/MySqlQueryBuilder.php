@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Longmaikel\Windu;
 
 
-class MySqlQueryBuilder
+class MySqlQueryBuilder implements QueryBuilder
 {
 
     private array $selectArray;
