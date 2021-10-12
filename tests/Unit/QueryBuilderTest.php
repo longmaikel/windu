@@ -138,6 +138,21 @@ class QueryBuilderTest extends TestCase
 
     }
 
+    public function test_query_contain_from_table()
+    {
+        //given
+        $queryBuilder = $this->queryBuilder;
+
+        //when
+        $query = $queryBuilder->select('id', 'name')
+            ->from('clients')
+            ->toSql();
+
+        //then
+        $this->assertStringContainsStringOnce('FROM clients', $query);
+
+    }
+
     public function selectAllStmtCases(): array
     {
         return [
