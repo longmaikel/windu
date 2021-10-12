@@ -123,7 +123,7 @@ class QueryBuilderTest extends TestCase
         $this->assertStringContainsString('c.created_at', $query);
     }
 
-    public function test_query_contain_from_key_word()
+    public function test_query_contain_from_key_word(): void
     {
         //given
         $queryBuilder = $this->queryBuilder;
@@ -138,7 +138,7 @@ class QueryBuilderTest extends TestCase
 
     }
 
-    public function test_query_contain_from_table()
+    public function test_query_contain_from_table(): void
     {
         //given
         $queryBuilder = $this->queryBuilder;
@@ -150,6 +150,21 @@ class QueryBuilderTest extends TestCase
 
         //then
         $this->assertStringContainsStringOnce('FROM clients', $query);
+
+    }
+
+    public function test_query_contain_from_table_with_alias(): void
+    {
+        //given
+        $queryBuilder = $this->queryBuilder;
+
+        //when
+        $query = $queryBuilder->select('id', 'name')
+            ->from('clients', 'c')
+            ->toSql();
+
+        //then
+        $this->assertStringContainsStringOnce('FROM clients AS c', $query);
 
     }
 
